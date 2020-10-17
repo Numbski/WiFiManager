@@ -295,6 +295,9 @@ class WiFiManager
     // show erase wifi onfig button on info page, true
     void          setShowInfoErase(boolean enabled);
     
+    // show back button in web pages, false
+    void          setShowBackButton(boolean enabled);
+    
     // set ap channel
     void          setWiFiAPChannel(int32_t channel);
     

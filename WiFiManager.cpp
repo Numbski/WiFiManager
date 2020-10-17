@@ -2389,6 +2389,14 @@ void WiFiManager::setShowInfoErase(boolean enabled){
 }
 
 /**
+ * toggle showing back button in config pages
+ * @param boolean enabled
+ */
+void WiFiManager::setShowBackButton(boolean enabled){
+  _showBack = enabled;
+}
+
+/**
  * set menu items and order
  * if param is present in menu , params will be removed from wifi page automatically
  * eg.

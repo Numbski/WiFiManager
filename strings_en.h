@@ -21,7 +21,9 @@ const char HTTP_SCRIPT[]           PROGMEM = "<script>function c(l){"
 "document.getElementById('s').value=l.innerText||l.textContent;"
 "p = l.nextElementSibling.classList.contains('l');"
 "document.getElementById('p').disabled = !p;"
-"if(p)document.getElementById('p').focus();}</script>";
+"if(p)document.getElementById('p').focus();}"
+"function confirm(n){var t,r=n.getAttribute('class'),e=n.innerHTML,i=0;function o(){i=0,n.setAttribute('class',r),n.innerHTML=e}return function(e){0==i?(e.preventDefault(),i=1,t=+new Date,n.setAttribute('class',r+' confirm'),n.innerHTML='Are you sure?',setTimeout(o,3e3)):new Date-t<500&&e.preventDefault()}}window.onload=function(){Array.from(document.getElementsByClassName('needsConfirm')).forEach(function(e){e.addEventListener('click',confirm(e))})};"
+"</script>";
 
 const char HTTP_HEAD_END[]         PROGMEM = "</head><body class='{c}'><div class='wrap'>";
 // example of embedded logo, base64 encoded inline, No styling here
@@ -33,9 +35,9 @@ const char * const HTTP_PORTAL_MENU[] PROGMEM = {
 "<form action='/info'    method='get'><button>Info</button></form><br/>\n", // MENU_INFO
 "<form action='/param'   method='get'><button>Setup</button></form><br/>\n",//MENU_PARAM
 "<form action='/close'   method='get'><button>Close</button></form><br/>\n", // MENU_CLOSE
-"<form action='/restart' method='get'><button>Restart</button></form><br/>\n",// MENU_RESTART
-"<form action='/exit'    method='get'><button>Exit</button></form><br/>\n",  // MENU_EXIT
-"<form action='/erase'   method='get'><button class='D'>Erase</button></form><br/>\n", // MENU_ERASE
+"<form action='/restart' method='get'><button class='needsConfirm'>Restart</button></form><br/>\n",// MENU_RESTART
+"<form action='/exit'    method='get'><button class='needsConfirm'>Exit</button></form><br/>\n",  // MENU_EXIT
+"<form action='/erase'   method='get'><button class='D needsConfirm'>Erase</button></form><br/>\n", // MENU_ERASE
 "<hr><br/>" // MENU_SEP
 };
 
@@ -59,7 +61,7 @@ const char HTTP_SCAN_LINK[]        PROGMEM = "<br/><form action='/wifi?refresh=1
 const char HTTP_SAVED[]            PROGMEM = "<div class='msg'>Saving Credentials<br/>Trying to connect ESP to network.<br />If it fails reconnect to AP to try again</div>";
 const char HTTP_PARAMSAVED[]       PROGMEM = "<div class='msg S'>Saved<br/></div>";
 const char HTTP_END[]              PROGMEM = "</div></body></html>";
-const char HTTP_ERASEBTN[]         PROGMEM = "<br/><form action='/erase' method='get'><button class='D'>Erase WiFi Config</button></form>";
+const char HTTP_ERASEBTN[]         PROGMEM = "<br/><form action='/erase' method='get'><button class='D needsConfirm'>Erase WiFi Config</button></form>";
 const char HTTP_BACKBTN[]          PROGMEM = "<hr><br/><form action='/' method='get'><button>Back</button></form>";
 
 const char HTTP_STATUS_ON[]        PROGMEM = "<div class='msg S'><strong>Connected</strong> to {v}<br/><em><small>with IP {i}</small></em></div>";

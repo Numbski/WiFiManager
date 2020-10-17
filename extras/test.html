@@ -17,6 +17,37 @@
         return false;
     }
 
+    function confirm(button) {
+        var className = button.getAttribute('class'),
+            html = button.innerHTML,
+            then,
+            state = 0;
+
+        function cancel() {
+            state = 0;
+            button.setAttribute('class', className);
+            button.innerHTML = html;
+        }
+
+        return function(event) {
+            if (state == 0) {
+                event.preventDefault();
+                state = 1; 
+                then = +new Date();
+                button.setAttribute('class', className + ' confirm');
+                button.innerHTML = 'Are you sure?';
+                setTimeout(cancel, 3000); 
+            } else if (new Date() - then < 500) {
+                event.preventDefault();
+            }
+        };
+    }
+
+    window.onload = function() {
+        Array.from(document.getElementsByClassName('needsConfirm')).forEach(function (button) {
+            button.addEventListener('click', confirm(button));
+        })
+    };
     </script>
 
 <style>
@@ -172,7 +203,7 @@ input:disabled {
             <input id='sn' name='sn' length=15 placeholder='Subnet' value='255.255.255.0'>
             <br/>
             <br/>
-            <button type='submit'>save</button>
+            <button type='submit' class='needsConfirm'>save</button>
         </form>
         <br/>
         <div class="c"><a href="/wifi">Scan</a></div>
